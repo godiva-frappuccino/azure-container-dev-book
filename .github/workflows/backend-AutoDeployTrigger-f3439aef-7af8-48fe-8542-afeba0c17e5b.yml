@@ -1,0 +1,42 @@
+name: Trigger auto deployment for backend
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - 'apps/part3/backend/**'
+    - '.github/workflows/backend-AutoDeployTrigger-f3439aef-7af8-48fe-8542-afeba0c17e5b.yml'
+
+  # Allow mannually trigger 
+  workflow_dispatch:
+      
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.BACKEND_AZURE_CREDENTIALS }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }}/apps/part3/backend 
+          registryUrl: todosacr9203.azurecr.io
+          registryUsername: ${{ secrets.BACKEND_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.BACKEND_REGISTRY_PASSWORD }}
+          containerAppName: backend
+          resourceGroup: todo-part3-rg
+          imageToBuild: todosacr9203.azurecr.io/backend:${{ github.sha }}
+          dockerfilePath: Dockerfile
+
+     
+
