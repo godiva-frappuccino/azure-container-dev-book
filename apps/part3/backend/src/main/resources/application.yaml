@@ -1,15 +1,15 @@
 # Schedule API のEndpointを指定してください
-# schedule:
-#   api:
-#     url: https://schedule.xxx.japaneast.azurecontainerapps.io/schedule
+schedule:
+  api:
+    url: https://schedule.lemonbay-8b15e72a.japaneast.azurecontainerapps.io/schedule
 
-# # Resilience4j の設定
-# resilience4j:
-#   retry: #リトライの設定
-#     instances:
-#       scheduleRetry:
-#         max-attempts: 10
-#         waitDuration: 1s
+# Resilience4j の設定
+resilience4j:
+  retry: #リトライの設定
+    instances:
+      scheduleRetry:
+        max-attempts: 10
+        waitDuration: 1s
 
 #   ratelimiter:  #レート制限の設定
 #     limiters:

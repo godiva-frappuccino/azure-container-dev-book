@@ -1,7 +1,7 @@
 Backend API using Java
 
 ###
-POST https://backend.xxx.japaneast.azurecontainerapps.io/api/v1/todos
+POST backend.proudstone-101a42bd.japaneast.azurecontainerapps.io/api/v1/todos
 content-type: application/json
 
 {
